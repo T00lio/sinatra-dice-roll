@@ -3,17 +3,14 @@ require "sinatra/reloader"
 require "better_errors"
 require "binding_of_caller"
 
-
 # Need this configuration for better_errors
 use(BetterErrors::Middleware)
 BetterErrors.application_root = __dir__
-BetterErrors::Middleware.allow_ip!('0.0.0.0/0.0.0.0')
+BetterErrors::Middleware.allow_ip!("0.0.0.0/0.0.0.0")
 
-get '/' do
+get("/") do
   erb(:elephant)
 end
-
-
 
 get("/dice/2/6") do
   first_die = rand(1..6)
@@ -22,28 +19,26 @@ get("/dice/2/6") do
 
   @outcome = "You rolled a #{first_die} and a #{second_die} for a total of #{sum}."
 
-  erb(:two_six, {layout: :wrapper})
+  erb(:two_six, { layout: :wrapper })
 end
 
-get '/dice/2/10' do 
-  first_die = rand(1..10)
-  second_die = rand(1..10)
-  sum = first_die + second_die
-  
+get("/dice/2/10") do
+  @die = rand(1..20)
+
   @outcome = "You rolled a #{first_die} and a #{second_die} for a total of #{sum}."
-  
+
   erb(:two_ten)
 end
 
-get '/dice/1/20' do
+get("/dice/1/20") do
   first_die = rand(1..20)
 
   @outcome = "You rolled a #{first_die}."
-  
-erb(:one_twenty, {layout: :wrapper})
+
+  erb(:one_twenty, { layout: :wrapper })
 end
 
-get '/dice/5/4' do
+get("/dice/5/4") do
   rolls = []
   sum = 0
 
@@ -52,13 +47,12 @@ get '/dice/5/4' do
     rolls << roll
     sum += roll
   end
-  
-  @outcome = "You rolled #{rolls.join(', ')} for a total of #{sum}."
-  erb(:five_four, {layout: :wrapper})
-  
+
+  @outcome = "You rolled #{rolls.join(", ")} for a total of #{sum}."
+  erb(:five_four, { layout: :wrapper })
 end
 
-get '/dice/3/8' do
+get("/dice/3/8") do
   rolls = []
   sum = 0
 
@@ -67,7 +61,7 @@ get '/dice/3/8' do
     rolls << roll
     sum += roll
   end
-  
-  @outcome = "You rolled #{rolls.join(', ')} for a total of #{sum}."
-  erb(:three_eight, {layout: :wrapper})
+
+  @outcome = "You rolled #{rolls.join(", ")} for a total of #{sum}."
+  erb(:three_eight, { layout: :wrapper })
 end
