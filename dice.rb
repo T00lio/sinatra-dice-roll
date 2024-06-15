@@ -19,7 +19,7 @@ get("/dice/2/6") do
 
   @outcome = "You rolled a #{first_die} and a #{second_die} for a total of #{sum}."
 
-  erb(:two_six, { layout: :wrapper })
+  erb(:two_six)
 end
 
 get("/dice/2/10") do
@@ -30,13 +30,6 @@ get("/dice/2/10") do
   erb(:two_ten)
 end
 
-get("/dice/1/20") do
-  first_die = rand(1..20)
-
-  @outcome = "You rolled a #{first_die}."
-
-  erb(:one_twenty, { layout: :wrapper })
-end
 
 get("/dice/5/4") do
   rolls = []
@@ -49,7 +42,7 @@ get("/dice/5/4") do
   end
 
   @outcome = "You rolled #{rolls.join(", ")} for a total of #{sum}."
-  erb(:five_four, { layout: :wrapper })
+  erb(:five_four)
 end
 
 get("/dice/3/8") do
@@ -63,5 +56,17 @@ get("/dice/3/8") do
   end
 
   @outcome = "You rolled #{rolls.join(", ")} for a total of #{sum}."
-  erb(:three_eight, { layout: :wrapper })
+  erb(:three_eight)
+end
+
+get("/dice/100/6") do
+  @rolls = []
+
+  100.times do
+    die = rand(1..6)
+
+    @rolls.push(die)
+  end
+
+  erb(:hundred_six)
 end
